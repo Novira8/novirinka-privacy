@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="it" data-lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Privacy — Novirinka, bot Telegram</title>
+<script>
+  /* язык: ?lang=ru / ?lang=it → сохранённый выбор → язык телефона; по умолчанию итальянский */
+  (function () {
+    var lang = null;
+    try { lang = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+    if (lang !== 'ru' && lang !== 'it') {
+      try { lang = localStorage.getItem('lang'); } catch (e) {}
+    }
+    if (lang !== 'ru' && lang !== 'it') {
+      lang = /^(ru|uk|be)/i.test(navigator.language || '') ? 'ru' : 'it';
+    }
+    document.documentElement.lang = lang;
+    document.documentElement.setAttribute('data-lang', lang);
+  })();
+</script>
+<style>
+  /* шрифты системные — страница не обращается к внешним серверам */
+  :root {
+    --bg: #f7f5f1;
+    --surface: #ffffff;
+    --ink: #1d2433;
+    --muted: #5f6675;
+    --line: #e3dfd7;
+    --accent: #2f4a7a;
+    --fill: #9a6b1f;
+    --radius: 6px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12161f;
+      --surface: #1a202c;
+      --ink: #eef0f4;
+      --muted: #a3aab8;
+      --line: #2c3445;
+      --accent: #9db7e8;
+      --fill: #e3b86a;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  html[data-lang="it"] [lang="ru"],
+  html[data-lang="ru"] [lang="it"] { display: none !important; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    overflow-wrap: break-word;
+  }
+
+  a { color: var(--accent); }
+
+  .wrap {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+  }
+  .langbar { display: flex; gap: 4px; }
+  .langbar button {
+    min-width: 44px;
+    min-height: 36px;
+    padding: 0 10px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    color: var(--muted);
+    font: 600 12px/1 system-ui, sans-serif;
+    letter-spacing: .2em;
+    cursor: pointer;
+  }
+  html[data-lang="it"] .langbar [data-set="it"],
+  html[data-lang="ru"] .langbar [data-set="ru"] {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  h1 {
+    margin: 24px 0 6px;
+    font: 600 clamp(24px, 7vw, 34px)/1.15 system-ui, sans-serif;
+  }
+  .updated { margin: 0 0 24px; color: var(--muted); font-size: 14px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    margin: 26px 0 8px;
+    font: 600 19px/1.3 system-ui, sans-serif;
+  }
+  h2:first-child { margin-top: 0; }
+  p, ul { margin: 0 0 12px; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+
+  /* данные, которые надо заполнить перед публикацией */
+  .fill {
+    padding: 0 4px;
+    border: 1px dashed var(--fill);
+    border-radius: 3px;
+    color: var(--fill);
+  }
+
+  footer {
+    padding: 14px 0 44px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap topbar">
+  <div class="langbar" role="group" aria-label="Lingua / Язык">
+    <button type="button" data-set="it">IT</button>
+    <button type="button" data-set="ru">RU</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ================= ITALIANO ================= -->
+  <div lang="it">
+    <h1>Informativa privacy del bot Telegram</h1>
+    <p class="updated">ai sensi degli artt. 13–14 del Regolamento UE 2016/679 (GDPR) · aggiornata al 21 ottobre 2026</p>
+
+    <div class="card">
+      <h2>Titolare del trattamento</h2>
+      <p>Iryna Novorodovska (Novirinka), servizi di contenuti con intelligenza artificiale, Italia.<br>
+        E-mail: <a href="mailto:novira20001@gmail.com">novira20001@gmail.com</a> · Telegram: <a href="https://t.me/Novirinka">@Novirinka</a></p>
+
+      <h2>Quali dati trattiamo</h2>
+      <ul>
+        <li><b>Dati del profilo Telegram</b> che Telegram trasmette al bot quando gli scrive: nome, nome utente e identificativo Telegram, lingua dell’app.</li>
+        <li><b>Dati della richiesta</b> che ci fornisce Lei: il servizio scelto, i tempi desiderati e la descrizione del lavoro, scritta, con un messaggio vocale o con foto e file che decide di inviare.</li>
+        <li><b>Data e ora</b> della richiesta, il link da cui è arrivato al bot (ad esempio dalla risposta automatica di WhatsApp) e il numero di richieste inviate in precedenza.</li>
+      </ul>
+      <p>Il bot non chiede il numero di telefono, l’indirizzo né dati di pagamento e non invia messaggi pubblicitari.</p>
+
+      <h2>Perché e su quale base</h2>
+      <ul>
+        <li>Rispondere alla Sua richiesta e preparare un’eventuale offerta: esecuzione di misure precontrattuali (art. 6.1.b GDPR).</li>
+        <li>Adempiere agli obblighi di legge, ad esempio fiscali, se la richiesta diventa un incarico: art. 6.1.c GDPR.</li>
+      </ul>
+
+      <h2>È obbligatorio fornire i dati?</h2>
+      <p>No, ma senza i dati della richiesta e del profilo Telegram non è possibile risponderLe. Può comunque scrivere direttamente a <a href="https://t.me/Novirinka">@Novirinka</a> senza usare il bot.</p>
+
+      <h2>Decisioni automatizzate</h2>
+      <p>Il bot raccoglie soltanto la richiesta e la inoltra al titolare. Non prende decisioni automatizzate e non effettua profilazione (art. 22 GDPR).</p>
+
+      <h2>Dove passano i dati</h2>
+      <p>Il bot funziona su Telegram, un servizio che Lei ha scelto di usare. Telegram Messenger Inc. ha sede fuori dallo Spazio economico europeo e tratta i messaggi come titolare autonomo, secondo la propria <a href="https://telegram.org/privacy" rel="noopener">informativa privacy</a>; il suo rappresentante nell’UE è l’European Data Protection Office (EDPO), Bruxelles. Ogni richiesta arriva in una chat Telegram privata a cui ha accesso solo il titolare. Il programma del bot è ospitato su Cloudflare Workers di Cloudflare, Inc. (Stati Uniti), con server in molti paesi, anche nell’UE; il trasferimento dei dati verso gli Stati Uniti si basa sull’EU-U.S. Data Privacy Framework, a cui Cloudflare aderisce.</p>
+
+      <h2>Per quanto tempo</h2>
+      <p>I dati della richiesta sono conservati per il tempo necessario a rispondere e comunque non oltre 12 mesi dall’ultimo contatto, salvo i periodi più lunghi richiesti dalla legge (ad esempio per i documenti fiscali). Trascorso questo periodo, le richieste vengono cancellate dalla chat e dal bot.</p>
+
+      <h2>A chi li comunichiamo</h2>
+      <p>I dati non vengono venduti né ceduti a terzi per fini commerciali. Oltre a Telegram, possono essere trattati dal servizio che ospita il bot e, se necessario, dal commercialista per gli adempimenti fiscali.</p>
+
+      <h2>I Suoi diritti</h2>
+      <p>Può chiedere in qualsiasi momento l’accesso ai Suoi dati, la rettifica, la cancellazione, la limitazione del trattamento, la portabilità e opporsi al trattamento (artt. 15–22 GDPR), scrivendo ai contatti indicati sopra. Rispondiamo entro un mese dalla richiesta.</p>
+      <p>Ha inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali: <a href="https://www.garanteprivacy.it" rel="noopener">www.garanteprivacy.it</a>.</p>
+
+      <h2>Aggiornamenti</h2>
+      <p>Questa informativa può essere aggiornata. La data dell’ultima versione è indicata in alto.</p>
+    </div>
+  </div>
+
+  <!-- ================= РУССКИЙ ================= -->
+  <div lang="ru">
+    <h1>Политика конфиденциальности Telegram-бота</h1>
+    <p class="updated">в соответствии со ст. 13–14 Регламента ЕС 2016/679 (GDPR) · редакция от 21 октября 2026 г.<br>
+      Это перевод для удобства; юридически действует итальянский текст.</p>
+
+    <div class="card">
+      <h2>Кто обрабатывает данные</h2>
+      <p>Ирина Новородовская (Novirinka), контент с помощью искусственного интеллекта, Италия.<br>
+        Почта: <a href="mailto:novira20001@gmail.com">novira20001@gmail.com</a> · Telegram: <a href="https://t.me/Novirinka">@Novirinka</a></p>
+
+      <h2>Какие данные</h2>
+      <ul>
+        <li><b>Данные профиля Telegram</b>, которые Telegram передаёт боту, когда Вы ему пишете: имя, имя пользователя и номер профиля в Telegram, язык приложения.</li>
+        <li><b>Данные заявки</b>, которые Вы сообщаете сами: выбранная услуга, желаемый срок и описание задачи — текстом, голосовым сообщением или фото и файлами, которые Вы решите прислать.</li>
+        <li><b>Дата и время</b> заявки, ссылка, по которой Вы пришли в бота (например, из автоответа в WhatsApp), и сколько заявок Вы присылали раньше.</li>
+      </ul>
+      <p>Бот не спрашивает номер телефона, адрес и платёжные данные и не присылает рекламу.</p>
+
+      <h2>Зачем и на каком основании</h2>
+      <ul>
+        <li>Ответить на Вашу заявку и подготовить предложение — подготовка договора (ст. 6.1.b GDPR).</li>
+        <li>Выполнить требования закона, например налоговые, если заявка станет заказом, — ст. 6.1.c GDPR.</li>
+      </ul>
+
+      <h2>Обязательно ли давать данные</h2>
+      <p>Нет, но без данных заявки и профиля Telegram ответить на неё не получится. Вы всегда можете написать напрямую в <a href="https://t.me/Novirinka">@Novirinka</a>, не пользуясь ботом.</p>
+
+      <h2>Автоматические решения</h2>
+      <p>Бот только собирает заявку и передаёт её владельцу. Он не принимает автоматических решений и не составляет профилей (ст. 22 GDPR).</p>
+
+      <h2>Где проходят данные</h2>
+      <p>Бот работает в Telegram — сервисе, которым Вы решили пользоваться. Telegram Messenger Inc. находится за пределами Европейской экономической зоны и обрабатывает сообщения как самостоятельный оператор по своей <a href="https://telegram.org/privacy" rel="noopener">политике конфиденциальности</a>; его представитель в ЕС — European Data Protection Office (EDPO), Брюссель. Каждая заявка приходит в закрытый чат Telegram, доступ к которому есть только у владельца. Программа бота работает на Cloudflare Workers компании Cloudflare, Inc. (США); её серверы находятся во многих странах, в том числе в ЕС. Передача данных в США основана на EU-U.S. Data Privacy Framework, к которому Cloudflare присоединилась.</p>
+
+      <h2>Сколько хранятся</h2>
+      <p>Данные заявки хранятся столько, сколько нужно, чтобы ответить, и не дольше 12 месяцев после последнего контакта — кроме случаев, когда закон требует хранить дольше (например, налоговые документы). После этого заявки удаляются из чата и из бота.</p>
+
+      <h2>Кому передаются</h2>
+      <p>Данные не продаются и не передаются третьим лицам для рекламы. Кроме Telegram, доступ к ним может быть у сервиса, на котором работает бот, и при необходимости у бухгалтера для налоговой отчётности.</p>
+
+      <h2>Ваши права</h2>
+      <p>В любой момент Вы можете запросить доступ к своим данным, их исправление, удаление, ограничение обработки, перенос, а также возразить против обработки (ст. 15–22 GDPR) — напишите по контактам выше. Мы отвечаем в течение месяца.</p>
+      <p>Вы также можете подать жалобу в итальянский орган по защите данных (Garante per la protezione dei dati personali): <a href="https://www.garanteprivacy.it" rel="noopener">www.garanteprivacy.it</a>.</p>
+
+      <h2>Обновления</h2>
+      <p>Эта политика может обновляться. Дата последней редакции указана вверху.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">Novirinka · <span lang="it">bot Telegram</span><span lang="ru">Telegram-бот</span></div>
+</footer>
+
+<script>
+  (function () {
+    var titles = {
+      it: 'Privacy — Novirinka, bot Telegram',
+      ru: 'Конфиденциальность — Novirinka, Telegram-бот'
+    };
+    function setLang(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.setAttribute('data-lang', lang);
+      document.title = titles[lang];
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+    document.title = titles[document.documentElement.getAttribute('data-lang')] || titles.it;
+    var buttons = document.querySelectorAll('.langbar button');
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function () { setLang(this.getAttribute('data-set')); });
+    }
+  })();
+</script>
+
+</body>
+</html>
