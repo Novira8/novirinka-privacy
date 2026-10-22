@@ -6,15 +6,17 @@
 <meta name="robots" content="noindex">
 <title>Privacy — Novirinka, bot Telegram</title>
 <script>
-  /* язык: ?lang=ru / ?lang=it → сохранённый выбор → язык телефона; по умолчанию итальянский */
+  /* язык: ?lang=ru / it / en → сохранённый выбор → язык телефона (it → IT, ru/uk/be → RU, остальные → EN) */
   (function () {
+    var ok = { it: 1, ru: 1, en: 1 };
     var lang = null;
     try { lang = new URLSearchParams(location.search).get('lang'); } catch (e) {}
-    if (lang !== 'ru' && lang !== 'it') {
+    if (!ok[lang]) {
       try { lang = localStorage.getItem('lang'); } catch (e) {}
     }
-    if (lang !== 'ru' && lang !== 'it') {
-      lang = /^(ru|uk|be)/i.test(navigator.language || '') ? 'ru' : 'it';
+    if (!ok[lang]) {
+      var nav = navigator.language || '';
+      lang = /^it/i.test(nav) ? 'it' : /^(ru|uk|be)/i.test(nav) ? 'ru' : 'en';
     }
     document.documentElement.lang = lang;
     document.documentElement.setAttribute('data-lang', lang);
@@ -48,8 +50,9 @@
 
   html { -webkit-text-size-adjust: 100%; }
 
-  html[data-lang="it"] [lang="ru"],
-  html[data-lang="ru"] [lang="it"] { display: none !important; }
+  html[data-lang="it"] [lang="ru"], html[data-lang="it"] [lang="en"],
+  html[data-lang="ru"] [lang="it"], html[data-lang="ru"] [lang="en"],
+  html[data-lang="en"] [lang="it"], html[data-lang="en"] [lang="ru"] { display: none !important; }
 
   body {
     margin: 0;
@@ -87,7 +90,8 @@
     cursor: pointer;
   }
   html[data-lang="it"] .langbar [data-set="it"],
-  html[data-lang="ru"] .langbar [data-set="ru"] {
+  html[data-lang="ru"] .langbar [data-set="ru"],
+  html[data-lang="en"] .langbar [data-set="en"] {
     color: var(--accent);
     border-color: var(--accent);
   }
@@ -133,9 +137,10 @@
 <body>
 
 <div class="wrap topbar">
-  <div class="langbar" role="group" aria-label="Lingua / Язык">
+  <div class="langbar" role="group" aria-label="Lingua / Язык / Language">
     <button type="button" data-set="it">IT</button>
     <button type="button" data-set="ru">RU</button>
+    <button type="button" data-set="en">EN</button>
   </div>
 </div>
 
@@ -144,7 +149,7 @@
   <!-- ================= ITALIANO ================= -->
   <div lang="it">
     <h1>Informativa privacy del bot Telegram</h1>
-    <p class="updated">ai sensi degli artt. 13–14 del Regolamento UE 2016/679 (GDPR) · aggiornata al 21 ottobre 2026</p>
+    <p class="updated">ai sensi degli artt. 13–14 del Regolamento UE 2016/679 (GDPR) · aggiornata al 22 ottobre 2026</p>
 
     <div class="card">
       <h2>Titolare del trattamento</h2>
@@ -153,7 +158,7 @@
 
       <h2>Quali dati trattiamo</h2>
       <ul>
-        <li><b>Dati del profilo Telegram</b> che Telegram trasmette al bot quando gli scrive: nome, nome utente e identificativo Telegram, lingua dell’app.</li>
+        <li><b>Dati del profilo Telegram</b> che Telegram trasmette al bot quando gli scrive: nome, nome utente e identificativo Telegram, lingua dell’app; inoltre la lingua che sceglie nel bot.</li>
         <li><b>Dati della richiesta</b> che ci fornisce Lei: il servizio scelto, i tempi desiderati e la descrizione del lavoro, scritta, con un messaggio vocale o con foto e file che decide di inviare.</li>
         <li><b>Data e ora</b> della richiesta, il link da cui è arrivato al bot (ad esempio dalla risposta automatica di WhatsApp) e il numero di richieste inviate in precedenza.</li>
       </ul>
@@ -192,7 +197,7 @@
   <!-- ================= РУССКИЙ ================= -->
   <div lang="ru">
     <h1>Политика конфиденциальности Telegram-бота</h1>
-    <p class="updated">в соответствии со ст. 13–14 Регламента ЕС 2016/679 (GDPR) · редакция от 21 октября 2026 г.<br>
+    <p class="updated">в соответствии со ст. 13–14 Регламента ЕС 2016/679 (GDPR) · редакция от 22 октября 2026 г.<br>
       Это перевод для удобства; юридически действует итальянский текст.</p>
 
     <div class="card">
@@ -202,7 +207,7 @@
 
       <h2>Какие данные</h2>
       <ul>
-        <li><b>Данные профиля Telegram</b>, которые Telegram передаёт боту, когда Вы ему пишете: имя, имя пользователя и номер профиля в Telegram, язык приложения.</li>
+        <li><b>Данные профиля Telegram</b>, которые Telegram передаёт боту, когда Вы ему пишете: имя, имя пользователя и номер профиля в Telegram, язык приложения; а также язык, который Вы выбрали в боте.</li>
         <li><b>Данные заявки</b>, которые Вы сообщаете сами: выбранная услуга, желаемый срок и описание задачи — текстом, голосовым сообщением или фото и файлами, которые Вы решите прислать.</li>
         <li><b>Дата и время</b> заявки, ссылка, по которой Вы пришли в бота (например, из автоответа в WhatsApp), и сколько заявок Вы присылали раньше.</li>
       </ul>
@@ -238,17 +243,67 @@
     </div>
   </div>
 
+  <!-- ================= ENGLISH ================= -->
+  <div lang="en">
+    <h1>Telegram bot privacy notice</h1>
+    <p class="updated">under Articles 13–14 of EU Regulation 2016/679 (GDPR) · last updated 22 October 2026<br>
+      This translation is provided for convenience; the Italian text is legally binding.</p>
+
+    <div class="card">
+      <h2>Data controller</h2>
+      <p>Iryna Novorodovska (Novirinka), AI-assisted content services, Italy.<br>
+        Email: <a href="mailto:novira20001@gmail.com">novira20001@gmail.com</a> · Telegram: <a href="https://t.me/Novirinka">@Novirinka</a></p>
+
+      <h2>What data we process</h2>
+      <ul>
+        <li><b>Telegram profile data</b> that Telegram passes to the bot when you write to it: name, username and Telegram ID, app language; also the language you choose in the bot.</li>
+        <li><b>Request data</b> you provide yourself: the service you choose, the desired timing and a description of the work, in writing, as a voice message, or as photos and files you decide to send.</li>
+        <li><b>Date and time</b> of the request, the link that brought you to the bot (for example, from the WhatsApp auto-reply) and the number of requests you have sent before.</li>
+      </ul>
+      <p>The bot does not ask for your phone number, address or payment details, and does not send advertising.</p>
+
+      <h2>Purposes and legal basis</h2>
+      <ul>
+        <li>To reply to your request and prepare a possible offer: steps taken at your request before entering into a contract (Art. 6(1)(b) GDPR).</li>
+        <li>To meet legal obligations, such as tax obligations, if the request becomes an order: Art. 6(1)(c) GDPR.</li>
+      </ul>
+
+      <h2>Do you have to provide the data?</h2>
+      <p>No, but without the request data and your Telegram profile we cannot reply to you. You can always write directly to <a href="https://t.me/Novirinka">@Novirinka</a> without using the bot.</p>
+
+      <h2>Automated decisions</h2>
+      <p>The bot only collects the request and forwards it to the controller. It makes no automated decisions and carries out no profiling (Art. 22 GDPR).</p>
+
+      <h2>Where the data goes</h2>
+      <p>The bot runs on Telegram, a service you have chosen to use. Telegram Messenger Inc. is based outside the European Economic Area and processes messages as an independent controller under its own <a href="https://telegram.org/privacy" rel="noopener">privacy policy</a>; its EU representative is the European Data Protection Office (EDPO), Brussels. Each request arrives in a private Telegram chat that only the controller can access. The bot’s program is hosted on Cloudflare Workers by Cloudflare, Inc. (United States), with servers in many countries, including in the EU; transfers of data to the United States rely on the EU-U.S. Data Privacy Framework, in which Cloudflare participates.</p>
+
+      <h2>How long we keep it</h2>
+      <p>Request data is kept for as long as needed to reply, and in any case for no more than 12 months after the last contact, except where the law requires longer periods (for example, for tax records). After that, requests are deleted from the chat and from the bot.</p>
+
+      <h2>Who we share it with</h2>
+      <p>The data is not sold or passed to third parties for marketing. Besides Telegram, it may be processed by the service that hosts the bot and, if necessary, by an accountant for tax purposes.</p>
+
+      <h2>Your rights</h2>
+      <p>You can at any time request access to your data, its correction or deletion, restriction of processing and data portability, and you can object to processing (Arts. 15–22 GDPR) by writing to the contacts above. We reply within one month of your request.</p>
+      <p>You also have the right to lodge a complaint with the Italian data protection authority (Garante per la protezione dei dati personali): <a href="https://www.garanteprivacy.it" rel="noopener">www.garanteprivacy.it</a>.</p>
+
+      <h2>Updates</h2>
+      <p>This notice may be updated. The date of the latest version is shown at the top.</p>
+    </div>
+  </div>
+
 </main>
 
 <footer>
-  <div class="wrap">Novirinka · <span lang="it">bot Telegram</span><span lang="ru">Telegram-бот</span></div>
+  <div class="wrap">Novirinka · <span lang="it">bot Telegram</span><span lang="ru">Telegram-бот</span><span lang="en">Telegram bot</span></div>
 </footer>
 
 <script>
   (function () {
     var titles = {
       it: 'Privacy — Novirinka, bot Telegram',
-      ru: 'Конфиденциальность — Novirinka, Telegram-бот'
+      ru: 'Конфиденциальность — Novirinka, Telegram-бот',
+      en: 'Privacy — Novirinka, Telegram bot'
     };
     function setLang(lang) {
       document.documentElement.lang = lang;
